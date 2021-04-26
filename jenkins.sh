@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e # En cas de code de route non zero, arrêter le script
+set -e # En cas de code de retour non zero, arrêter le script
 
 # Ce script est destiner au milestone 2 Jenkins
 # Alias Zabasux (Arnaud DEGEZ)
