@@ -5,6 +5,18 @@ set -e # En cas de code de retour non zero, arrêter le script
 # Alias Zabasux (Arnaud DEGEZ)
 
 # Fonctions
+#Création partition 
+ws_partition_is_present() {
+    test -d /mnt/dd1
+}
+ws_create_partition() {
+    mkdir /mnt/dd1
+    mkfs.ext4 /dev/sdb
+}
+ws_mount_partition() {
+    mount -t ext4 /dev/sdb /mnt/dd1
+}
+
 # Vérifier que le script est bien lancé en tant que root
 ws_assert_root() {
 	REAL_ID="$(id -u)"
@@ -30,9 +42,17 @@ ws_source_package() {
     fi
 }
 
+
+
 # Main
 #Vérification au lancement du script (root)
 ws_asset_root
+
+#creation partition 
+if ! ws_partition_is_present ; then 
+    ws_create_partition
+    ws_mount_partition
+fi
 
 #Installation du package openjdk-11-jdk et gnupg
 apt-get -y update
